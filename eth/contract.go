@@ -36,7 +36,7 @@ func (c *Contract) Address() common.Address {
 	return c.addr
 }
 
-func (c *Contract) Call(methodName string, args ...interface{}) (interface{}, error) {
+func (c *Contract) Call(from common.Address, methodName string, args ...interface{}) (interface{}, error) {
 
 	data, err := c.EncodeABI(methodName, args...)
 
@@ -45,6 +45,7 @@ func (c *Contract) Call(methodName string, args ...interface{}) (interface{}, er
 	}
 
 	msg := &types.ZeroValueCallMsg{
+		From: from,
 		To:   c.addr,
 		Data: data,
 	}
